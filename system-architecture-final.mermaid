@@ -1,0 +1,47 @@
+flowchart TD
+    subgraph User["User Interface"]
+        UI[Streamlit Frontend]
+        API[FastAPI Endpoints]
+        Feedback[User Feedback]
+    end
+
+    subgraph Core["Core Prediction System"]
+        BM[Bayesian Model]
+        CPT[Conditional Probability Tables]
+        Storage[Storage System]
+        BM --> CPT
+    end
+
+    subgraph RAA["Risk Assessment Integration"]
+        SNET[SingularityNET SDK]
+        Photrek[Photrek Service]
+        SNET --> Photrek
+    end
+
+    subgraph DataFlow["Data Flow"]
+        Input[User Input Data]
+        Predict[Make Prediction]
+        Store[Store Prediction]
+        Calibration[Calibration Manager]
+    end
+
+    UI --> API
+    API --> Input
+    Input --> BM
+    BM --> Predict
+    Predict --> Store
+    Store --> Storage
+    Feedback --> Storage
+    
+    Storage --> Calibration
+    Calibration --> SNET
+    SNET --> Calibration
+    Calibration --> BM
+
+    classDef primary fill:#e1f5fe,stroke:#01579b
+    classDef secondary fill:#f3e5f5,stroke:#4a148c
+    classDef storage fill:#e8f5e9,stroke:#1b5e20
+    
+    class UI,API,Feedback primary
+    class BM,CPT secondary
+    class Storage,Store storage
