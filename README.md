@@ -95,7 +95,7 @@ risk-aware-assessment-app/
 
 1. Start the Streamlit application:
 ```bash
-streamlit run src/frontend/app_v6.py
+streamlit run frontend/app_v6.py
 ```
 
 -> Model initiation can take a few minutes.
