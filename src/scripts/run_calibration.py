@@ -9,9 +9,9 @@ project_root = str(Path(__file__).parent.parent.parent)
 sys.path.insert(0, project_root)
 
 from dotenv import load_dotenv
-from src.utils.storage_v3 import SleepDataStorage
+from src.utils.storage_v4 import SleepDataStorage
 from src.integrations.snet_integration_v3 import SNETIntegration
-from src.models.bayesian_model_builder_v3 import BayesianModelBuilder
+from src.models.bayesian_model_builder_v4 import BayesianModelBuilder
 from src.models.calibration_manager import CalibrationManager
 
 def run_calibration():

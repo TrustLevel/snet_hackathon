@@ -1,9 +1,4 @@
-# V2 changes: 
-# - Adaption to new SQP file (update store_prediction method)
-# - Added record_feedback method
-# - Added method to store sleep quality prediction category
-# V3 changes: add calibration process into get_latest_evaluation_results method, added "union"
-# tested 26.11 with app_v5 
+# 
 
 import pandas as pd
 import numpy as np
@@ -50,7 +45,7 @@ class SleepDataStorage:
     def __init__(self, storage_dir: str = "src/data"):
         """Initialize storage with directory path."""
         self.storage_dir = storage_dir
-        self.predictions_file = os.path.join(storage_dir, "predictions.csv")
+        self.predictions_file = os.path.join(storage_dir, "predictions_v2.csv")
         self.evaluations_file = os.path.join(storage_dir, "evaluation_history.csv")
         
         # Create directory if it doesn't exist
@@ -188,10 +183,11 @@ class SleepDataStorage:
             return False
 
     def get_predictions_with_outcomes(self, 
-                                    limit: Optional[int] = None,
-                                    min_predictions: int = 3) -> List[Dict[str, Any]]:
+                                limit: Optional[int] = None,
+                                min_predictions: int = 3) -> List[Dict[str, Any]]:
         """Get predictions that have feedback for evaluation or display."""
         try:
+            logger.info("Reading predictions from CSV")
             df = pd.read_csv(self.predictions_file)
             
             # Get only predictions with feedback
@@ -203,31 +199,41 @@ class SleepDataStorage:
             
             if limit:
                 df = df.tail(limit)
+                logger.debug(f"Taking last {limit} predictions")
             
             # Convert rows to dictionaries
             predictions = []
             for _, row in df.iterrows():
-                pred = {
-                    'prediction_id': row['prediction_id'],
-                    'probabilities': {
-                        'Poor': float(row['prob_poor']),
-                        'Moderate': float(row['prob_moderate']),
-                        'Good': float(row['prob_good'])
-                    },
-                    'actual_quality': float(row['actual_quality']),
-                    'actual_category': self._score_to_category(float(row['actual_quality'])),
-                    'timestamp': row['timestamp'],
-                    'feedback_timestamp': row['feedback_timestamp'],
-                    'predicted_category': row['predicted_category'],
-                    'insights': json.loads(row['insights']) if pd.notna(row['insights']) else None
-                }
-                predictions.append(pred)
+                try:
+                    pred = {
+                        'prediction_id': row['prediction_id'],
+                        'probabilities': {
+                            'Poor': float(row['prob_poor']),
+                            'Moderate': float(row['prob_moderate']),
+                            'Good': float(row['prob_good'])
+                        },
+                        'actual_quality': float(row['actual_quality']),
+                        'actual_category': self._score_to_category(float(row['actual_quality'])),
+                        'timestamp': row['timestamp'],
+                        'feedback_timestamp': row['feedback_timestamp'],
+                        'predicted_category': row['predicted_category'],
+                        'insights': json.loads(row['insights']) if pd.notna(row['insights']) else None,
+                        'input_data': json.loads(row['input_data']) if pd.notna(row['input_data']) else None
+                    }
+                    predictions.append(pred)
+                    logger.debug(f"Processed prediction: {pred['prediction_id']}")
+                    
+                except Exception as e:
+                    logger.error(f"Error processing row: {str(e)}")
+                    continue
             
+            logger.info(f"Successfully retrieved {len(predictions)} predictions with feedback")
             return predictions
             
         except Exception as e:
             logger.error(f"Error getting predictions: {str(e)}")
             return []
+
 
     def get_predictions_for_evaluation(self, 
                                      min_predictions: int = 10,
@@ -355,5 +361,6 @@ class SleepDataStorage:
             
             # Save empty files
             pred_df.to_csv(self.predictions_file, index=False)
-            eval_df.to_csv(self.evaluations_file, index=False)
+            eval_df.to_csv(sel
+            f.evaluations_file, index=False)
             logger.info("Cleared test data")
