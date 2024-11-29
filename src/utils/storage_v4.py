@@ -351,16 +351,3 @@ class SleepDataStorage:
         except Exception as e:
             logger.error(f"Error getting evaluation results: {str(e)}")
             return None
-
-    def clear_test_data(self):
-        """Clear all data (use only in testing)."""
-        if 'test_data' in self.storage_dir:  # Safety check
-            # Create empty DataFrames with correct schemas
-            pred_df = self._create_empty_dataframe(self.PREDICTIONS_SCHEMA)
-            eval_df = self._create_empty_dataframe(self.EVALUATIONS_SCHEMA)
-            
-            # Save empty files
-            pred_df.to_csv(self.predictions_file, index=False)
-            eval_df.to_csv(sel
-            f.evaluations_file, index=False)
-            logger.info("Cleared test data")
