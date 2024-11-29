@@ -106,10 +106,12 @@ streamlit run src/frontend/app_v6.py
 
 4. Run Calibration Manger and Risk-Aware-Assessment:
 ```bash
-pyhton src/scirpts/run-calibration.py
+pyhton src/scripts/run-calibration.py
 ```
+-> Trouble shoot: 
+If permission is denied, try first: chmod +x src/scripts/run_calibration.py and the run the command again
 
--> If model accuracy is low for example, it will adjust the concentration factor of the model. You can see the lastest concentration factor in src/data/concentration_factor.txt after running the calibration.
+What happens at calibration process: If model accuracy is low for example, it will adjust the concentration factor of the model. You can see the lastest concentration factor in src/data/concentration_factor.txt after running the calibration.
 
 5. Go back to the Streamlit UI.
 ```
