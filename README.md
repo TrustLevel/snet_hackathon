@@ -7,7 +7,8 @@ Video 2: Live Demonstration: https://www.loom.com/share/0339c41dcbe5482d8f5f8c49
 Let me first explain the key components of our sultion and how they work together:
 
 1. Compontent: Sleep Quality Prediction Model
-- Uses a Bayesian network model (implemented with PyMC) to predict your sleep quality for the next night. 
+- Uses a Bayesian network model (implemented with PyMC) to predict your sleep quality for the next night.
+  - The initiation of the model is based on research-based CPTs (Conditional Probability Table). 
 - Takes user inputs (the model is structure to be able to add more paramters if we want)
   - Personal factors (age, gender, BMI)
   - Sleep-related factors (sleep duration, resting heart rate)
@@ -17,7 +18,7 @@ Let me first explain the key components of our sultion and how they work togethe
   - Confidence metrics
 
 2. Component: Risk-Aware Assessment Integration
-- After collecting user feedback (actual sleep quality), we:
+- After collecting user feedback (= actual sleep quality), we:
   - Batch predictions together (for Hackathon demonstration: 10 samples)
   - Send to Photrek's service through SingularityNET
   - Get back ADR metrics:
@@ -28,12 +29,12 @@ Let me first explain the key components of our sultion and how they work togethe
 3. Component: Calibration Process
 - Uses ADR metrics to:
   - Adjust model concentration factor which controls prediction confidence (meaning: how confident the model is about it's predctions)
-  - This way, the model learns about it's prediction and can improve accuracy of it's future predictions o
-  - Could be used to update CPT (Conditional Probability Table) weights (-> this part is not part of the Hackathon Demo)
+  - This way, the model learns about it's prediction and can improve accuracy of it's future predictions 
+  - Could be used to update CPT weights as well (-> this part is not part of the Hackathon Demo)
   - Generate insights about model performance and recommend model improvements
 
 4. Data Flow:
--> See system-architecture-final.mermaid file
+-> Graphic file: system-architecture-final.mermaid 
 ```
 a. Prediction Flow:
 User Input -> Preprocessing (data validation) -> Categorization (preparing for model) -> Bayesian Model -> Sleep Quality Prediction
@@ -45,10 +46,10 @@ c. Calibration Flow:
 ADR Metrics -> Calibration Manager -> Model Updates -> Improved Predictions
 ```
 
-This architecture provides several advantages:
-1. Continuous Improvement: Model gets better with user feedback
-2. Transparency: Clear insights into model performance
-3. Scalability: Modular design allows easy updates, new parameters can be easily added
+This Design provides several advantages:
+1. Model gets better with user feedback
+2. Clear insights into model performance
+3. Modular design allows easy updates, new parameters can be easily added
 
 ---
 
@@ -83,7 +84,7 @@ SNET_ETH_ENDPOINT=your_ethereum_endpoint
 ## Project Structure
 
 ```
-risk-aware-assessment-app/
+snet_hackathon/
 ├── src/
 │   ├── api/              # FastAPI endpoints
 │   ├── models/           # ML models and prediction logic
@@ -127,4 +128,8 @@ Model will use new concentration factor to recalibrate the concentration factor 
 ```
 -> Trouble shoot: If concentration factor is not found, manually create concentration_factor.txt under src/data/ and enter the new factor (e.g. 0.8). 
 
+6. Run the FastAPI
+```
+uvicorn src.api.app_v2:app --reload
+```
 
