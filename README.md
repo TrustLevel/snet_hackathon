@@ -25,10 +25,10 @@ Let me first explain the key components of our sultion and how they work togethe
 
 3. Component: Calibration Process
 - Uses ADR metrics to:
-  - Adjust model concentration factor (controls prediction confidence) -> Part of the Hackathon Demo
-  - Could be used to update CPT (Conditional Probability Table) weights -> not part of the Hackathon Demo
-  - Generate insights about model performance
-  - Recommend model improvements
+  - Adjust model concentration factor which controls prediction confidence (meaning: how confident the model is about it's predctions)
+  - This way, the model learns about it's prediction and can improve accuracy of it's future predictions o
+  - Could be used to update CPT (Conditional Probability Table) weights (-> this part is not part of the Hackathon Demo)
+  - Generate insights about model performance and recommend model improvements
 
 4. Data Flow:
 -> See system-architecture-final.mermaid file
