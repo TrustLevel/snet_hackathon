@@ -115,7 +115,7 @@ What happens at calibration process: If model accuracy is low for example, it wi
 
 Check terminal log for Risk-Assessment result and new concentration factor. It should look like this:
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/a99e1550-6b38-4f97-8035-f56ce89f446f)
 
 
 5. Go back to the Streamlit UI.
