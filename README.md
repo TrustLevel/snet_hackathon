@@ -130,6 +130,6 @@ Model will use new concentration factor to recalibrate the concentration factor 
 
 6. Run the FastAPI
 ```
-uvicorn src.api.app_v2:app --reload
+uvicorn src.api.app:app --reload
 ```
 
