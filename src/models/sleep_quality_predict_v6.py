@@ -1,6 +1,3 @@
-# src/models/sleep_quality_predict_v5.py
-# tested: aligned with bayesian model builder v3
-# version 2: add logging to prepare data for update for bugfix 
 
 from typing import Dict, Optional, Any, List
 import numpy as np
@@ -8,7 +5,7 @@ from datetime import datetime
 import pymc as pm
 import json 
 from src.utils.preprocessing import preprocess_user_data
-from src.utils.storage_v3 import SleepDataStorage
+from src.utils.storage_v4 import SleepDataStorage
 from src.models.bayesian_model_builder_v4 import BayesianModelBuilder
 
 import logging
