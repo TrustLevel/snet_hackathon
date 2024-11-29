@@ -6,8 +6,8 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 from src.utils.preprocessing import preprocess_user_data
-from src.utils.storage_v3 import SleepDataStorage
-from src.models.sleep_quality_predict_v5 import SleepQualityPredict
+from src.utils.storage_v4 import SleepDataStorage
+from src.models.sleep_quality_predict_v6 import SleepQualityPredict
 
 app = FastAPI(
     title="Sleep Quality Prediction API",
