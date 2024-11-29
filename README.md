@@ -106,7 +106,7 @@ streamlit run src/frontend/app_v6.py
 
 4. Run Calibration Manger and Risk-Aware-Assessment:
 ```bash
-pyhton src/scripts/run-calibration.py
+pyhton src/scripts/run_calibration.py
 ```
 -> Trouble shoot: 
 If permission is denied, try first: chmod +x src/scripts/run_calibration.py and the run the command again
