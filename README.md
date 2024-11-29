@@ -4,7 +4,7 @@ Let me first explain the key components of our sultion and how they work togethe
 
 1. Compontent: Sleep Quality Prediction Model
 - Uses a Bayesian network model (implemented with PyMC) to predict your sleep quality for the next night. 
-- Takes user inputs (we can add more paramters if we want)
+- Takes user inputs (the model is structure to be able to add more paramters if we want)
   - Personal factors (age, gender, BMI)
   - Sleep-related factors (sleep duration, resting heart rate)
   - Behavioral factors (stress level, blue light exposure)
@@ -14,7 +14,7 @@ Let me first explain the key components of our sultion and how they work togethe
 
 2. Component: Risk-Aware Assessment Integration
 - After collecting user feedback (actual sleep quality), we:
-  - Batch predictions together (for demonstration: 10 samples)
+  - Batch predictions together (for Hackathon demonstration: 10 samples)
   - Send to Photrek's service through SingularityNET
   - Get back ADR metrics:
     - Accuracy: How well probabilities match actual outcomes
@@ -23,8 +23,8 @@ Let me first explain the key components of our sultion and how they work togethe
 
 3. Component: Calibration Process
 - Uses ADR metrics to:
-  - Adjust model concentration factor (controls prediction confidence)
-  - Update CPT (Conditional Probability Table) weights
+  - Adjust model concentration factor (controls prediction confidence) -> Part of the Hackathon Demo
+  - Could be used to update CPT (Conditional Probability Table) weights -> not part of the Hackathon Demo
   - Generate insights about model performance
   - Recommend model improvements
 
