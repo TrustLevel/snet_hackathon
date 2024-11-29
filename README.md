@@ -1,5 +1,7 @@
 # TrustLevel's submisstion for the SNET Hackathon
 
+Explaination of the our approach: https://www.loom.com/share/1d4c9d1d31454cd78a5daed73eb582ad?sid=2afe32c0-df24-4b79-9e5d-3a44003ac0e2
+
 Let me first explain the key components of our sultion and how they work together:
 
 1. Compontent: Sleep Quality Prediction Model
@@ -66,6 +68,7 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+-> Trouble shoot: Make sure you have pymc version 5.10.4, numpy 1.24.2, pytensor 2.18.6, scipy 1.10.1!
 
 ## Configuration
 
@@ -84,24 +87,18 @@ risk-aware-assessment-app/
 │   ├── models/           # ML models and prediction logic
 │   ├── utils/            # Utility functions
 │   ├── integrations/     # SNET integration
-│   └── frontend/         # Streamlit UI
-├── data/                 # Data storage
-└── docs/                 # Documentation
+│   └── data    /         # Data storage
+└── frontend              # Streamlit UI
 ```
 
 ## Usage
 
 1. Start the Streamlit application:
 ```bash
-streamlit run src/frontend/app_v5.py
+streamlit run src/frontend/app_v6.py
 ```
 
--> Model initiation can take up 20 minutes.
-
-To fasten the model initiation, you can change the paramters in the bayesian_model_builder_v4.py file:
-- look at def _generate_initial_trace
-- Change int sample to 100 (now: 500)
-- Change "chains" (line 160) to 2 (now 4).
+-> Model initiation can take a few minutes.
 
 2. Access the web interface at `http://localhost:8501`
 
@@ -112,4 +109,10 @@ To fasten the model initiation, you can change the paramters in the bayesian_mod
 pyhton src/scirpts/run-calibration.py
 ```
 
-5. Check model changes in your terminal. It will show if the confidence level (concentration factor) will change.
+-> If model accuracy is low for example, it will adjust the concentration factor of the model. You can see the lastest concentration factor in src/data/concentration_factor.txt after running the calibration.
+
+5. Go back to the Streamlit UI.
+```
+Press button: Update Model (on the right)
+Model will use new concentration factor to recalibrate the concentration factor of the model.
+```
