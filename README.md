@@ -1,4 +1,4 @@
-# TrustLevel's submisstion for the SNET Hackathon
+# TrustLevel's submission for the SNET Hackathon
 
 Explaination of the our approach: https://www.loom.com/share/1d4c9d1d31454cd78a5daed73eb582ad?sid=2afe32c0-df24-4b79-9e5d-3a44003ac0e2
 
@@ -113,8 +113,11 @@ If permission is denied, try first: chmod +x src/scripts/run_calibration.py and 
 
 What happens at calibration process: If model accuracy is low for example, it will adjust the concentration factor of the model. You can see the lastest concentration factor in src/data/concentration_factor.txt after running the calibration.
 
+Check terminal log for Risk-Assessment result and new concentration factor.
+
 5. Go back to the Streamlit UI.
 ```
 Press button: Update Model (on the right)
 Model will use new concentration factor to recalibrate the concentration factor of the model.
 ```
+-> Trouble shoot: If concentration factor is not found, manually create concentration_factor.txt under src/data/ and enter the new factor (e.g. 0.8). 
